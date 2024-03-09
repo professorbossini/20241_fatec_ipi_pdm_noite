@@ -1,7 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import ReactDOM from 'react-dom'
+import Pedido from './Pedido'
+import Cartao from './Cartao'
+import Feedback from './Feedback'
 const App = () => {
+  const feedback = <Feedback
+    textoOK="Já chegou"
+    textoNOK="Ainda não chegou"
+    funcaoOK={() => alert('Obrigado pelo feedback!')}
+    funcaoNOK={() => alert('Verificaremos o que houve')}
+  />
   return <div className="container-fluid border mt-2">
     <div className="row">
       <div className="col-12">
@@ -14,69 +23,56 @@ const App = () => {
       {/* primeiro pedido */}
       <div className="col-sm-12 col-lg-6 col-xxl-3">
         {/* .card>.card-header.text-muted{22/04/2021}+.card-body.d-flex */}
-        <div className="card">
-          <div className="card-header text-muted">22/04/2021</div>
-            <div className="card-body d-flex">
-              <div className="d-flex align-items-center">
-                <i className="fa-regular fa-hard-drive fa-2x fa-beat-fade"></i>
-              </div>
-              <div className="flex-grow-1 ms-3 border">
-                <h4 className="text-center">HD</h4>
-                <p className="text-center">HD 1Tb</p>
-              </div>
-            </div>
-        </div>
-
+        <Cartao cabecalho="22/04/2023">
+          <Pedido
+            iconeNome="fa-hdd"
+            iconeEfeito="fa-fade"
+            titulo="HDD"
+            descricao="1Tb" />
+          {feedback}
+        </Cartao>
       </div>
       <div className="col-sm-12 col-lg-6 col-xxl-3">
         {/* .card>.card-header.text-muted{22/04/2021}+.card-body.d-flex */}
-        <div className="card">
-            <div className="card-header text-muted">22/04/2022</div>
-              <div className="card-body d-flex">
-                <div className="d-flex align-items-center">
-                <i className="fa-solid fa-memory fa-2x fa-bounce"></i>
-              </div>
-              <div className="flex-grow-1 ms-3 border">
-                <h4 className="text-center">RAM</h4>
-                <p className="text-center">Memória 16Gb</p>
-              </div>
-            </div>
-        </div>
+        <Cartao
+          cabecalho="22/04/2023">
+        <Pedido 
+          iconeNome="fa-hdd"
+          iconeEfeito="fa-fade"
+          titulo="HDD"
+          descricao="1Tb" />
+        {feedback}
+        </Cartao>
       </div>
       <div className="col-sm-12 col-lg-6 col-xxl-3">
         {/* .card>.card-header.text-muted{22/04/2021}+.card-body.d-flex */}
-        <div className="card">
-          <div className="card-header text-muted">22/04/2022</div>
-            <div className="card-body d-flex">
-              <div className="d-flex align-items-center">
-              <i className="fa-brands fa-java fa-2x fa-flip"></i>
-            </div>
-            <div className="flex-grow-1 ms-3 border">
-              <h4 className="text-center">Java</h4>
-              <p className="text-center">Projeto simples</p>
-            </div>
-          </div>
-        </div>
+        <Cartao
+          cabecalho="21/01/2023">
+          <Pedido 
+            iconeNome="fa-book"
+            iconeEfeito="fa-shake"
+            titulo="Livro"
+            descricao="Concrete Mathematics" />
+          {feedback}
+        
+        </Cartao>
       </div>
       <div className="col-sm-12 col-lg-6 col-xxl-3">
       {/* .card>.card-header.text-muted{22/04/2021}+.card-body.d-flex */}
-      <div className="card">
-        <div className="card-header text-muted">22/04/2022</div>
-          <div className="card-body d-flex">
-            <div className="d-flex align-items-center">
-            <i className="fa-solid fa-gamepad fa-2x fa-shake"></i>
-          </div>
-          <div className="flex-grow-1 ms-3 border">
-            <h4 className="text-center">Java</h4>
-            <p className="text-center">Projeto simples</p>
-          </div>
-        </div>
-      </div>
-
+        <Cartao
+          cabecalho="22/04/2022">
+          <Pedido 
+            iconeNome="fa-laptop"
+            iconeEfeito="fa-flip"
+            titulo="Notebook"
+            descricao="i7 12th" />
+          {feedback}
+        </Cartao>
       </div>  
     </div>
     <div className="row">
-      
+      {/* exibir um nome de empresa que você vai inventar e pelo menos três icones de redes sociais */}
+      {/* <Rodape conteudo="" icones=""/>  */}
     </div>
   </div>
 }
