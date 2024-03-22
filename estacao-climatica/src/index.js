@@ -22,7 +22,7 @@ class App extends React.Component{
   icones = {
     'Verão': 'sun',
     'Inverno': 'snowflake',
-    'Outono': 'canadian-maple-leaf',
+    'Outono': 'leaf',
     'Primavera': 'tree'
 
   }
