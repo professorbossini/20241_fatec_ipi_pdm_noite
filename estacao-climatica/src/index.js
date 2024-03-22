@@ -80,9 +80,40 @@ class App extends React.Component{
 
   
   render(){
-    return <div>
-      Oi
-    </div>
+    return (
+      <div className='container mt-2'>
+        <div className="row justify-content-center">
+          <div className="col-sm-12 col-md-8">
+              {/* um cartão do Bootstrap */}
+              <div className="card">
+                <div className="card-body">
+                  <div 
+                    className="d-flex align-items-center border rounded mb-2"
+                    style={{height: '6rem'}}>
+                    {/* icone */}
+                    <i className={`fa-solid fa-5x fa-${this.state.icone}`}></i>
+                    <p className="w-75 ms-3 text-center fs-1">{this.state.estacao}</p>
+                  </div>
+                  <div>
+                    <p className="text-center">
+                      {
+                      this.state.latitude ?
+                        `Coordenadas: ${this.state.latitude, this.state.longitude}. Data: ${this.state.data}` :
+                        `Clique no botão para saber a sua estação climática`
+                      }
+                    </p>
+                  </div>
+                  <button 
+                    className="btn btn-outline-primary w-100 mt-2"
+                    onClick={() => this.obterLocalizacao()}>
+                    Qual a minha estação?
+                  </button>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
