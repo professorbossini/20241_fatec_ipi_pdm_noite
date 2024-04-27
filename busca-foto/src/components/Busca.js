@@ -16,6 +16,7 @@ export default class Busca extends Component {
 
   onFormSubmit = (event) => {
     event.preventDefault()
+    this.props.onBuscaRealizada(this.state.termoDeBusca)
   }
   render() {
     return (
@@ -35,7 +36,7 @@ export default class Busca extends Component {
                 />
             </IconField>
           </div>
-          <Button 
+          <Button
             label="Buscar"
             className={`${this.props.classNameButton}`}/>
         </div>
