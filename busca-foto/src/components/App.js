@@ -1,5 +1,4 @@
 import React from 'react'
-import env from 'react-dotenv'
 import Busca from './Busca'
 // import { createClient } from 'pexels'
 import pexelsClient from '../utils/pexelsClient'

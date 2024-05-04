@@ -2,8 +2,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
 import axios from 'axios'
+import cors from 'cors'
 const app = express()
 app.use(express.json())
+app.use(cors())
 const PEXELS_KEY = process.env.PEXELS_KEY
 //isso é um objeto JSON
 /*
