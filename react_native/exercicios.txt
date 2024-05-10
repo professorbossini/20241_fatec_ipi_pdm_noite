@@ -1,0 +1,13 @@
+10/05/2024
+
+01:
+
+- Converter o componente App para que ele seja definido por meio de uma classe
+
+- Ele deve possuir, dois campos em que o usuário pode digitar valores numéricos
+
+- Ele dve possuir um campo que mostra a soma dos dois valores
+
+- A soma deve ser realizada quando o usuário clicar num botão
+
+- Descubra quais componentes utilizar vasculhando a documentação oficial: https://reactnative.dev/docs/components-and-apis
