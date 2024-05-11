@@ -1,7 +1,15 @@
 10/05/2024
 
-01:
+04: 
+- Estilizar os lembretes
 
+03:
+- Substituir o Button por um Pressable, pois Button está deprecated
+
+02:
+- converter o texto digitado para letras maiúsculas
+
+01:
 - Converter o componente App para que ele seja definido por meio de uma classe
 
 - Ele deve possuir, dois campos em que o usuário pode digitar valores numéricos
