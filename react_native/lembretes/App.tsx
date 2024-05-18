@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import {
+  Alert,
   FlatList,
   Pressable,
   StyleSheet,
   Text,
   TextInput, 
+  ToastAndroid, 
   View 
 } from 'react-native';
+import IconesRedesSociais from './IconesRedesSociais';
+import IconesEdicaoRemocao from './IconesEdicaoRemocao';
 
 interface Lembrete {
   id: string;
@@ -32,6 +36,47 @@ export default function App() {
     setLembrete('')
     //4. Vincular essa função ao Pressable
   }
+
+  const remover = (id: string) => {
+    //usar um alert para confirmar se o usuário quer mesmo apagar
+    Alert.alert(
+      'Remover lembrete',
+      `Deseja remover esse lembrete: ${lembretes.find(l => l.id === id)?.texto}`,
+      [
+        {
+          text: 'Cancelar',
+          style: 'cancel'
+        },
+        {
+          text: 'Remover',
+          style: 'destructive',
+          onPress: () => {
+            setLembretes(lembretesAtuais => lembretesAtuais.filter(l => l.id !== id))
+            ToastAndroid.show(
+              'Lembrete removido com sucesso',
+              ToastAndroid.LONG
+            )
+          }
+        }
+      ]
+    )
+    //se ele quiser, atualizar o estado que armazena a lista removendo o lembrete cujo id seja igual àquele recebido como parâmetro
+
+    //talvez você queira usar a função filter
+
+    //mostre um Toast confirmando que a remoção aconteceu
+  }
+
+  const atualizar = (id: string) => {
+    // Copiar o texto do lembrete clicado para o campo em que lembretes são digitados
+
+    //trocar o texto do botão de salvar lembrete para atualizar lembrete
+
+    //ajustar o evento de clique no botão para que ele chame a função adicinoar ou a função atualizar de acordo com as interações do usuário
+
+    //confirmar a atualização com um Toast
+
+  }
   return (
     <View style={styles.container}>
       <TextInput
@@ -49,14 +94,27 @@ export default function App() {
         </Text>
       </Pressable>
       <FlatList
-        style={styles.list} 
+        style={styles.list}
+        keyExtractor={item => item.id} 
         data={lembretes}
         renderItem={lembrete => (
-          <View>
-            <Text>{lembrete.item.texto}</Text>
+          <View
+            style={styles.listItem}>
+            <Text
+              style={styles.listItemText}>
+              {lembrete.item.texto}
+            </Text>
+            <View
+              style={styles.listItemButtons}>
+              <IconesEdicaoRemocao 
+                remover={() => remover(lembrete.item.id)} 
+                atualizar={() => atualizar(lembrete.item.id)}/>
+            </View>
           </View>
         )}
       />
+      {/* componente que exibe lista de ícones de redes sociais */}
+      <IconesRedesSociais />
     </View>
   );
 }
@@ -76,7 +134,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginBottom: 12,
     padding: 8,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   button:{
     width: '80%',
@@ -93,6 +151,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'lightgray',
     width: '80%',
-    borderRadius: 4
+    borderRadius: 4,
+    marginBottom: 8
+  },
+  listItem:{
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBlockColor: 'gray',
+    borderRadius: 8,
+    backgroundColor: '#F0F0F0',
+    margin: 8,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  listItemText:{
+    textAlign: 'center',
+    width: '70%'
+  },
+  listItemButtons: {
+    width: '30%'
   }
 });
