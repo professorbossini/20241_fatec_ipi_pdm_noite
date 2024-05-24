@@ -13,89 +13,68 @@ import IconesRedesSociais from './IconesRedesSociais';
 import IconesEdicaoRemocao from './IconesEdicaoRemocao';
 
 interface Lembrete {
-  id: string;
+  id?: string;
   texto: string;
 }
 
 export default function App() {
-  const [lembrete, setLembrete] = useState <string>('')
+  const [lembrete, setLembrete] = useState <Lembrete | null>(null)
   const [lembretes, setLembretes] = useState<Lembrete[]>([])
+  const [emModoDeEdicao, setEmModoDeEdicao] = useState<boolean> (false)
 
   const adicionar = () => {
     //1. construir um novo lembrete com id igual à data atual e texto igual àquilo que existe na variável de estado
-    const novoLembrete: Lembrete = {
-      id: Date.now().toString(),
-      texto: lembrete
+    if (lembrete === null || lembrete.texto === ''){
+      alert('Lembrete não pode ser vazio')
     }
-    //2. atualizar a lista de lembretes, adicionando o novo lembrete (use a função apropriada). OBS: O último lembrete digitado deve ser o primeiro a ser exibido (ele aparece no topo da lista)
-    setLembretes(lembretesAtual => [
-      novoLembrete,
-      ...lembretesAtual
-    ])
-    //3. atualizar a variável lembrete, limpando o campo para o usuário
-    setLembrete('')
-    //4. Vincular essa função ao Pressable
+    else{
+      const novoLembrete: Lembrete = {
+        id: Date.now().toString(),
+        texto: lembrete!.texto
+      }
+      //2. atualizar a lista de lembretes, adicionando o novo lembrete (use a função apropriada). OBS: O último lembrete digitado deve ser o primeiro a ser exibido (ele aparece no topo da lista)
+      setLembretes(lembretesAtual => [
+        novoLembrete,
+        ...lembretesAtual
+      ])
+      //3. atualizar a variável lembrete, limpando o campo para o usuário
+      setLembrete({texto: ''})
+      //4. Vincular essa função ao Pressable
+    }
   }
 
   const remover = (id: string) => {
-    //usar um alert para confirmar se o usuário quer mesmo apagar
-    Alert.alert(
-      'Remover lembrete',
-      `Deseja remover esse lembrete: ${lembretes.find(l => l.id === id)?.texto}`,
-      [
-        {
-          text: 'Cancelar',
-          style: 'cancel'
-        },
-        {
-          text: 'Remover',
-          style: 'destructive',
-          onPress: () => {
-            setLembretes(lembretesAtuais => lembretesAtuais.filter(l => l.id !== id))
-            ToastAndroid.show(
-              'Lembrete removido com sucesso',
-              ToastAndroid.LONG
-            )
-          }
-        }
-      ]
-    )
-    //se ele quiser, atualizar o estado que armazena a lista removendo o lembrete cujo id seja igual àquele recebido como parâmetro
-
-    //talvez você queira usar a função filter
-
-    //mostre um Toast confirmando que a remoção aconteceu
+    setLembretes(lembretesAtuais => lembretesAtuais.filter(l => l.id !== id))
   }
 
-  const atualizar = (id: string) => {
-    // Copiar o texto do lembrete clicado para o campo em que lembretes são digitados
-
-    //trocar o texto do botão de salvar lembrete para atualizar lembrete
-
-    //ajustar o evento de clique no botão para que ele chame a função adicinoar ou a função atualizar de acordo com as interações do usuário
-
-    //confirmar a atualização com um Toast
-
+  const atualizar = () => {
+    setLembretes(lembretesAtuais => (
+      lembretesAtuais.map(l => (
+        l.id === lembrete!.id ? lembrete! : l 
+      ))
+    ))
+    setLembrete({texto: ''})
+    setEmModoDeEdicao(false)
   }
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         placeholder='Digite um lembrete...'
-        onChangeText={setLembrete}
-        value={lembrete}
+        onChangeText={(lembreteDigitado) => setLembrete({id: lembrete?.id, texto: lembreteDigitado})}
+        value={lembrete?.texto}
       />
       <Pressable
         style={styles.button}
-        onPress={adicionar}>
+        onPress={emModoDeEdicao ? atualizar : adicionar}>
         <Text
           style={styles.buttonText}>
-            Salvar lembrete
+          {`${emModoDeEdicao ? 'Atualizar' : 'Salvar'} lembrete`}
         </Text>
       </Pressable>
       <FlatList
         style={styles.list}
-        keyExtractor={item => item.id} 
+        keyExtractor={item => item.id!} 
         data={lembretes}
         renderItem={lembrete => (
           <View
@@ -107,8 +86,11 @@ export default function App() {
             <View
               style={styles.listItemButtons}>
               <IconesEdicaoRemocao 
-                remover={() => remover(lembrete.item.id)} 
-                atualizar={() => atualizar(lembrete.item.id)}/>
+                remover={() => remover(lembrete.item.id!)} 
+                atualizar={() => {
+                  setLembrete(lembrete.item)
+                  setEmModoDeEdicao(true)  
+                }}/>
             </View>
           </View>
         )}
