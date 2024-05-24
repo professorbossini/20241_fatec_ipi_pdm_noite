@@ -1,3 +1,11 @@
+17/05/2024
+
+02:
+- Implementar o método atualizar lembrete como descrito nos comentários no código
+
+01:
+- Criar um componente que exibe ícones de redes sociais e exibir logo abaixo da lista
+
 10/05/2024
 
 04: 
