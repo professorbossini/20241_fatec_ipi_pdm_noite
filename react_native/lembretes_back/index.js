@@ -1,11 +1,13 @@
 require('dotenv').config()
 const express = require ('express')
+const cors = require('cors')
 // const mysql2 = require('mysql2')
 const pg = require('pg')
 const { Client } = pg
 const app = express()
 // {"texto": "Fazer café"}
 app.use(express.json())
+app.use(cors())
 const {
   PORT,
   DB_HOST,

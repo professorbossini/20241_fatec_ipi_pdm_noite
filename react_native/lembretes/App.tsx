@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Alert,
   FlatList,
@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import IconesRedesSociais from './IconesRedesSociais';
 import IconesEdicaoRemocao from './IconesEdicaoRemocao';
+import axios from 'axios';
 
 interface Lembrete {
   id?: string;
@@ -21,6 +22,13 @@ export default function App() {
   const [lembrete, setLembrete] = useState <Lembrete | null>(null)
   const [lembretes, setLembretes] = useState<Lembrete[]>([])
   const [emModoDeEdicao, setEmModoDeEdicao] = useState<boolean> (false)
+  useEffect(() => {
+    const vai = async () => {
+      const result = (await axios.get('http://localhost:3000/lembretes')).data
+      setLembretes(result)
+    }
+    vai()
+  }, [])
 
   const adicionar = () => {
     //1. construir um novo lembrete com id igual à data atual e texto igual àquilo que existe na variável de estado

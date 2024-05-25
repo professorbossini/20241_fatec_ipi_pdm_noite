@@ -8,6 +8,11 @@ INSERT INTO tb_lembrete (texto) VALUES
 ('Ver um filme');
 
 
+INSERT INTO
+    tb_lembrete (texto)
+VALUES ('Ir à feira'),
+    ('Encerrar a aula');
+
 
 --postgresql
 CREATE TABLE tb_lembrete(
